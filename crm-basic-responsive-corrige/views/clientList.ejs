@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="./style.css">
+    <script
+    src="http://code.jquery.com/jquery-3.2.1.js"
+    integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+    crossorigin="anonymous"></script>
+
+  </head>
+  <body>
+    <h1 class="bigTitle text-center">clientList</h1>
+
+      <div class="list-group container">
+        <div class="row">
+          <%
+          for(var i=0; i<clients.length; i++) {
+          %>
+             <div class="col-12 col-sm-6 col-md-4 col-lg-2 list-group-item contact">Prenom: <span id="firstNameSpan<%=i%>" ><%=clients[i].firstName%></span> <a id="firstName<%=i%>" class="aUpdate" href="#"> Update</a>,
+               Nom: <span id="lastNameSpan<%=i%>" ><%=clients[i].lastName%></span> <a id="lastName<%=i%>" class="aUpdate" href="#"> Update</a>,
+               Email: <span id="emailSpan<%=i%>" ><%=clients[i].email%></span> <a id="email<%=i%>" class="aUpdate" href="#"> Update</a>,
+               Tel: <span id="phoneSpan<%=i%>" ><%=clients[i].phone%></span> <a id="phone<%=i%>" class="aUpdate" href="#"> Update</a>
+               <a class="btn btn-warning" href="./delete?i=<%=i%>">Del</a>
+             </div>
+          <%
+          }
+          %>
+        </div>
+      </div>
+
+
+    <form id="form-add" class="form-inline contact" action="/add">
+      <div class="form-group">
+         <label for="firstName">Prénom</label>
+         <input class="form-control" id="firstName" type="text" name="firstName" value=""> <br>
+      </div>
+      <div class="form-group">
+        <label for="lastName">Nom</label>
+        <input class="form-control" id="lastName" type="text" name="lastName" value=""> <br>
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input class="form-control" id="email" type="text" name="email" value=""> <br>
+      </div>
+      <div class="form-group">
+        <label for="phone">Téléphone</label>
+        <input class="form-control" id="phone" type="text" name="phone" value=""> <br>
+      </div>
+      <div class="form-group">
+        <input id="addSubmit" type="submit" class="btn btn-warning" value="Valider">
+      </div>
+    </form>
+
+    <form id="form-update" class="form-inline contact" action="/update">
+      <div class="form-group">
+        <label for="position">Position</label>
+        <input class="form-control" id="position" type="text" name="i" value=""> <br>
+      </div>
+      <div class="form-group">
+        <label for="property">Property</label>
+        <input class="form-control" id="property" type="text" name="property" value=""> <br>
+      </div>
+      <div class="form-group">
+        <label for="value">Value</label>
+        <input class="form-control" id="value" type="text" name="value" value=""> <br>
+      </div>
+      <div class="form-group">
+        <input class="btn btn-warning" type="submit" value="Valider">
+      </div>
+    </form>
+    <script>
+      $("document").ready(function() {
+         $("#addSubmit").click(function (event) {
+            if($("#firstName").val()== "" || $("#firstName").val().length <2 || $("#lastName").val() == "" || $("#email").val() == "" || $("#phone").val() == "" || $("#phone").val().length <11 || Number($("#phone").val()) == NaN)
+            {
+                console.log(Number($("#phone").val()));
+                event.preventDefault();
+                alert("Au moins un des champs est vide...");
+            }
+         }
+         )
+
+         var list = $(".aUpdate");
+
+         list.each(function(index){
+              
+              $("#firstName"+index).click(function () {
+                console.log("aUpdate " + $(this).attr("id"));
+                console.log($("#firstNameSpan"+index).text());
+
+                $("#position").val(index);
+                $("#property").val("firstName");
+                $("#value").val($("#firstNameSpan"+index).text());
+            }
+            )
+            $("#lastName"+index).click(function () {
+                console.log("aUpdate " + $(this).attr("id"));
+                console.log($("#lastNameSpan"+index).text());
+
+                $("#position").val(index);
+                $("#property").val("lastName");
+                $("#value").val($("#lastNameSpan"+index).text());
+            }
+            )
+
+            $("#email"+index).click(function () {
+                console.log("aUpdate " + $(this).attr("id"));
+                console.log($("#emailSpan"+index).text());
+
+                $("#position").val(index);
+                $("#property").val("email");
+                $("#value").val($("#emailSpan"+index).text());
+            }
+            )
+
+            $("#phone"+index).click(function () {
+                console.log("aUpdate " + $(this).attr("id"));
+                console.log($("#phoneSpan"+index).text());
+
+                $("#position").val(index);
+                $("#property").val("phone");
+                $("#value").val($("#phoneSpan"+index).text());
+            }
+            )
+         }); 
+         
+         
+      })
+    </script>
+  </body>
+</html>

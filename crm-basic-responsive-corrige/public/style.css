@@ -1,0 +1,31 @@
+body {
+  background-color: #1abc9c;
+}
+
+.bigTitle {
+  color: #FFFFFF;
+  font-size: 24px;
+  font-family: 'Raleway', sans-serif;
+}
+
+.contact {
+  font-size: 16px;
+  font-family: 'Raleway', sans-serif;
+}
+
+.delete-btn {
+  color: #FFFFFF;
+  background-color: #e74c3c;
+}
+
+.delete-btn:hover {
+  background-color: #c0392b;
+}
+
+#form-update {
+  margin: 20px;
+}
+
+#form-add {
+  margin: 20px;
+}
